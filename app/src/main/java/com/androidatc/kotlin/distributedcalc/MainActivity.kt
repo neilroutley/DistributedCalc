@@ -10,27 +10,16 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
-import net.objecthunter.exp4j.ExpressionBuilder
 import java.lang.Exception
-import kotlin.math.exp
 
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "KotlinActivity"
     }
-    // Write a message to the database
-//    val database = FirebaseDatabase.getInstance()
-//    val myRef = database.getReference("message")
-//
-//    myRef.setValue("Hello, World!")
 
-//    private val mRootRef : DatabaseReference = FirebaseDatabase.getInstance().reference
-//    private val mConditionRef : DatabaseReference = mRootRef.child("condition")
     private var url : String? = null
-
     private val database = FirebaseDatabase.getInstance()
     private val myAPIRef = database.getReference("apiUrl")
-//    private val myRef = database.getReference("condition")
 
     override fun onStart() {
         super.onStart()
@@ -44,7 +33,6 @@ class MainActivity : AppCompatActivity() {
                     url = value
                     Toast.makeText(this@MainActivity, value, Toast.LENGTH_SHORT).show()
                 } else {
-                    url = "http://50.196.129.59:8091/calc/?expression="
                     Toast.makeText(this@MainActivity, "No/bad val: ".plus(value), Toast.LENGTH_SHORT).show()
                 }
                 Log.d(TAG, "Value is: $value")
@@ -55,28 +43,6 @@ class MainActivity : AppCompatActivity() {
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
-
-//        myRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                val value = dataSnapshot.getValue(String::class.java)
-//                if (value != null) {
-////                    tvResult.text = value
-//
-//                    Toast.makeText(this@MainActivity, value, Toast.LENGTH_SHORT).show()
-//                } else {
-////                    tvResult.text = "bad value"
-//                    Toast.makeText(this@MainActivity, value, Toast.LENGTH_SHORT).show()
-//                }
-//                Log.d(TAG, "Value is: $value")
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                // Failed to read value
-//                Log.w(TAG, "Failed to read value.", error.toException())
-//            }
-//        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,31 +86,23 @@ class MainActivity : AppCompatActivity() {
         tvEquals.setOnClickListener {
             try {
                 val queue = Volley.newRequestQueue(this)
-//                val expression = ExpressionBuilder(tvExpression.text.toString()).build()
 
-                val expressionUrl = url.plus(tvExpression.text.toString())// expression.evaluate()
-//                Toast.makeText(this@MainActivity, expressionUrl, Toast.LENGTH_LONG).show()
+                // add the expression to the url before passing it to the RESTapi
+                val expressionUrl = url.plus(tvExpression.text.toString())
 
+                // new json object get request and setting tvResult with the returned
+                // result from the RESTapi
                 val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, expressionUrl, null,
                     Response.Listener { response ->
                         tvResult.text = response.getString("result")
                         Toast.makeText(this@MainActivity, "result: ".plus(response.getString("result")), Toast.LENGTH_SHORT).show()
-
-//                        Toast.makeText(this@MainActivity, "result: ".plus(response.getString("result")), Toast.LENGTH_SHORT).show()
                     },
                     Response.ErrorListener { error ->
-                        // TODO: Handle error
                         Toast.makeText(this@MainActivity, "No/bad val: ".plus(error), Toast.LENGTH_SHORT).show()
                     }
                 )
+                // add to the network pool for processing
                 queue.add(jsonObjectRequest)
-
-//                val longResult = result.toLong()
-//                if(result == longResult.toDouble()){
-//                    tvResult.text = longResult.toString()
-//                } else {
-//                    tvResult.text = result.toString()
-//                }
 
             } catch (e : Exception) {
                 Log.d("Excpetion ", "message: " + e.message)
