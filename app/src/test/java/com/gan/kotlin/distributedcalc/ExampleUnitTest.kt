@@ -1,4 +1,4 @@
-package com.androidatc.kotlin.distributedcalc
+package com.gan.kotlin.distributedcalc
 
 import org.junit.Test
 
