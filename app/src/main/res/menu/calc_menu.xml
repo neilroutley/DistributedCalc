@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item  android:id="@+id/register_user"
+           android:title="Register"/>
+    <item  android:id="@+id/login"
+           android:title="Login"/>
+    <item  android:id="@+id/logout"
+           android:title="Logout"/>
+    <item  android:id="@+id/delete_user"
+           android:title="Delete User"/>
+    <item  android:id="@+id/history"
+           android:title="History"/>
+</menu>
