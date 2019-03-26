@@ -10,8 +10,8 @@ class ExpressionViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
     //binds data appropriately
     fun bindExpression(Expression: Expression?) {
         with(Expression!!) {
-            itemView.card_body.text = body
-            itemView.card_result.text = body
+            itemView.card_body.text = "Expression: " + body
+            itemView.card_result.text = "Result: " + result
         }
     }
 }

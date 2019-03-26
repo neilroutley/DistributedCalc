@@ -38,9 +38,16 @@ dependencies {
 
     // volley http request dependency
     implementation 'com.android.volley:volley:1.1.0'
+
+    // firebase authentication dependency
     implementation 'com.google.firebase:firebase-auth:16.0.3'
+
+    // generate the login page
     implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+
+    // for querying the database
     implementation 'com.firebaseui:firebase-ui-database:4.3.1'
+
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
